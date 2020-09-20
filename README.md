@@ -12,3 +12,6 @@ LSTM architecture of training is:
 ![alt text](/images/image_caption_lstm.png)
 
 **Dataset used**:Flickr8k dataset
+
+**References**:https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/
+              https://www.freecodecamp.org/news/building-an-image-caption-generator-with-deep-learning-in-tensorflow-a142722e9b1f/
