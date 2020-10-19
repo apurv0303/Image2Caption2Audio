@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
 
 
 '''IMPORTING LIBRARIES AND DEPENDENCIES'''
@@ -22,7 +18,7 @@ import time
 warnings.filterwarnings("ignore")
 
 
-# In[ ]:
+
 
 
 '''I'M USING FLICKR 8K DATASET.If you have GPU+16GB RAM then you can use FLICKR 30k dataset'''
@@ -48,8 +44,6 @@ for line in text_total.split('\n'):
 df_txt = pd.DataFrame(datatxt,columns=["filename","index","caption"])
 
 
-# In[ ]:
-
 
 '''Defining a function to calculate the top 3 words in all the captions available for the images'''
 def df_word(df_txt):
@@ -70,16 +64,14 @@ dfword.head(3)
 
 
 '''The caption dataset contains punctuations, singular words and numerical values 
-that need tobe cleaned before 
-it is fed to the model because uncleaned dataset will not create good captionsfor the images'''
+that need to be cleaned before 
+it is fed to the model because uncleaned dataset will not create good captions for the images'''
+
 def remove_punctuation(text_original):
     text_no_punctuation = text_original.translate(str.maketrans('','',string.punctuation))
     return(text_no_punctuation)
 text_no_punctuation = remove_punctuation(text_original)
 print(text_no_punctuation)
-
-
-# In[ ]:
 
 
 
@@ -94,7 +86,7 @@ text_len_more_than1 = remove_single_character(text_no_punctuation)
 print(text_len_more_than1)
 
 
-# In[ ]:
+
 
 
 print("\nRemove words with numeric values..")
@@ -160,8 +152,6 @@ modelvgg.load_weights("vgg16_weights_tf_dim_ordering_tf_kernels.h5")
 modelvgg.summary()
 
 
-# In[ ]:
-
 
 '''Deleting the last layer of the model'''
 from keras import models
@@ -171,14 +161,8 @@ modelvgg = models.Model(inputs=modelvgg.inputs, outputs=modelvgg.layers[-1].outp
 modelvgg.summary()
 
 
-# In[ ]:
-
-
 '''Feature extraction
-Here the features are extracted from all the images in the dataset. VGG-16 model gives out 4096 features from the input image of size 224 * 224'''
-
-
-# In[ ]:
+Here the features are extracted from all the images in the dataset. VGG-16 model gives out 4096 features from the input image of size 224 * 224'''  
 
 
 from keras.preprocessing.image import load_img, img_to_array
@@ -511,44 +495,44 @@ for jpgfnm, image_feature, tokenized_text in zip(fnm_test,di_test,dt_test):
 # In[ ]:
 
 
-def plot_images(pred_bad):
-    def create_str(caption_true):
-        strue = ""
-        for s in caption_true:
-            strue += " " + s
-        return(strue)
-    npix = 224
-    target_size = (npix,npix,3)    
-    count = 1
-    fig = plt.figure(figsize=(10,20))
-    npic = len(pred_bad)
-    for pb in pred_bad:
-        bleu,jpgfnm,caption_true,caption = pb
-        ## images 
-        filename = dir_Flickr_jpg + '/' + jpgfnm
-        image_load = load_img(filename, target_size=target_size)
-        ax = fig.add_subplot(npic,2,count,xticks=[],yticks=[])
-        ax.imshow(image_load)
-        count += 1
+# def plot_images(pred_bad):
+#     def create_str(caption_true):
+#         strue = ""
+#         for s in caption_true:
+#             strue += " " + s
+#         return(strue)
+#     npix = 224
+#     target_size = (npix,npix,3)    
+#     count = 1
+#     fig = plt.figure(figsize=(10,20))
+#     npic = len(pred_bad)
+#     for pb in pred_bad:
+#         bleu,jpgfnm,caption_true,caption = pb
+#         ## images 
+#         filename = dir_Flickr_jpg + '/' + jpgfnm
+#         image_load = load_img(filename, target_size=target_size)
+#         ax = fig.add_subplot(npic,2,count,xticks=[],yticks=[])
+#         ax.imshow(image_load)
+#         count += 1
 
-        caption_true = create_str(caption_true)
-        caption = create_str(caption)
+#         caption_true = create_str(caption_true)
+#         caption = create_str(caption)
         
-        ax = fig.add_subplot(npic,2,count)
-        plt.axis('off')
-        ax.plot()
-        ax.set_xlim(0,1)
-        ax.set_ylim(0,1)
-        ax.text(0,0.7,"true:" + caption_true,fontsize=20)
-        ax.text(0,0.4,"pred:" + caption,fontsize=20)
-        ax.text(0,0.1,"BLEU: {}".format(bleu),fontsize=20)
-        count += 1
-    plt.show()
+#         ax = fig.add_subplot(npic,2,count)
+#         plt.axis('off')
+#         ax.plot()
+#         ax.set_xlim(0,1)
+#         ax.set_ylim(0,1)
+#         ax.text(0,0.7,"true:" + caption_true,fontsize=20)
+#         ax.text(0,0.4,"pred:" + caption,fontsize=20)
+#         ax.text(0,0.1,"BLEU: {}".format(bleu),fontsize=20)
+#         count += 1
+#     plt.show()
 
-print("Bad Caption")
-plot_images(pred_bad)
-print("Good Caption")
-plot_images(pred_good)
+# print("Bad Caption")
+# plot_images(pred_bad)
+# print("Good Caption")
+# plot_images(pred_good)
 
 
 # In[ ]:
@@ -562,10 +546,6 @@ Below you will find a table displaying different BLEU scores obtained by tuning 
 
 # In[ ]:
 
-
-The following were the major outcomes and aboservations of the training process and testing the model on the test data:
-
-The validation loss increases after 5th epoch in most cases even though the training loss decreases over time. This indicates that the model is over fitting and the training needs to stop.
 Higher BLEU score doesn't aways translate to better generated captions. If the model overfits on your training data, it will lead the model to go through details in the image and generate out captions which don't make sense. It can be seen in the good and the bad captions generated above.
 
 
@@ -581,22 +561,6 @@ Higher BLEU score doesn't aways translate to better generated captions. If the m
 from text2adio import *
 audio_instance=cap_to_aud()
 audio_instance.speak_save(output caption,'en','aplha.mp3')
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
 
 
 
