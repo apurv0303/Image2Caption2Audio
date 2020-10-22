@@ -3,7 +3,7 @@
 '''IMPORTING LIBRARIES AND DEPENDENCIES'''
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from keras.backend.tensorflow_backend import set_session
+# from keras.backend.tensorflow_backend import set_session
 import keras
 import sys, time, os, warnings 
 import numpy as np
