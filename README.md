@@ -1,7 +1,7 @@
 ## Image2Caption2Audio
 **What it does**:It converts given image with its most probable Caption and then converts it in audio mp3 format.
 
-## Packgaes Required
+## Packages Required
 
 **1.Python**
 **2.Keras 2.3.1**
