@@ -13,7 +13,9 @@
 **8.Jupyter notebook**
 
 
-## Application:It can be useful for visually impaired people to get insights about what is in front of them. It can also be implemented on security cameras to alarm for any suspicious activities.
+## Application
+
+It can be useful for visually impaired people to get insights about what is in front of them. It can also be implemented on security cameras to alarm for any suspicious activities.
 
 
 
